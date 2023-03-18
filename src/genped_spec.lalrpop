@@ -1,33 +1,39 @@
 use std::str::FromStr;
-use crate::ast::{Expr, Opcode}; // (0)
+use crate::ast::*;
 
 grammar;
 
-pub Expr: Box<Expr> = { // (1)
-    Expr ExprOp Factor => Box::new(Expr::Op(<>)), // (2)
-    Factor,
+pub Spec: Spec = { // (1)
+    Statements => Spec { statements: <> },
+    // Expr ExprOp Factor => Box::new(Expr::Op(<>)), // (2)
+    // Factor,
 };
 
-ExprOp: Opcode = { // (3)
-    "+" => Opcode::Add,
-    "-" => Opcode::Sub,
+pub Statements: Statements = {
+    // TODO
+    "+" => Statements::Nil,
 };
 
-Factor: Box<Expr> = {
-    Factor FactorOp Term => Box::new(Expr::Op(<>)),
-    Term,
-};
+// ExprOp: Opcode = { // (3)
+//     "+" => Opcode::Add,
+//     "-" => Opcode::Sub,
+// };
 
-FactorOp: Opcode = {
-    "*" => Opcode::Mul,
-    "/" => Opcode::Div,
-};
+// Factor: Box<Expr> = {
+//     Factor FactorOp Term => Box::new(Expr::Op(<>)),
+//     Term,
+// };
 
-Term: Box<Expr> = {
-    Num => Box::new(Expr::Number(<>)), // (4)
-    "(" <Expr> ")"
-};
+// FactorOp: Opcode = {
+//     "*" => Opcode::Mul,
+//     "/" => Opcode::Div,
+// };
 
-Num: i32 = {
-    r"[0-9]+" => i32::from_str(<>).unwrap()
-};
+// Term: Box<Expr> = {
+//     Num => Box::new(Expr::Number(<>)), // (4)
+//     "(" <Expr> ")"
+// };
+
+// Num: i32 = {
+//     r"[0-9]+" => i32::from_str(<>).unwrap()
+// };
