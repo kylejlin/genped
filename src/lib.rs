@@ -1,14 +1,16 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
+#[macro_use]
+extern crate lalrpop_util;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+lalrpop_mod!(pub genped_spec);
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+mod ast;
+
+#[test]
+fn expr_test() {
+    let expr = genped_spec::ExprParser::new()
+        .parse("22 * 44 + 66")
+        .unwrap();
+    // This fails, but that's fine.
+    // This is just a hello world test.
+    assert_eq!(&format!("{:?}", expr), "((22 * 44) + 66)");
 }
