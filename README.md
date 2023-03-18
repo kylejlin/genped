@@ -60,16 +60,19 @@ Output (e.g., `arithmetic.rs`):
 ```rust
 use super::lexer::TaggedToken;
 
+#[derive(Debug, Clone)]
 pub enum Sum {
     Product(Product),
     Sum(Box<Sum>, (), Product),
 }
 
+#[derive(Debug, Clone)]
 pub enum Product {
     Term(Term),
     Product(Box<Product>, (), Term)
 }
 
+#[derive(Debug, Clone)]
 pub enum Term {
     Number(String),
     Parenthesized((), Box<Sum>, ()),
@@ -127,6 +130,7 @@ $ = enum TaggedToken {
 Then, in the output, we saw
 
 ```rust
+#[derive(Debug, Clone)]
 pub enum Sum {
     Product(Product),
     Sum(
@@ -136,6 +140,7 @@ pub enum Sum {
     ),
 }
 
+#[derive(Debug, Clone)]
 pub enum Product {
     Term(Term),
     Product(
@@ -145,6 +150,7 @@ pub enum Product {
     ),
 }
 
+#[derive(Debug, Clone)]
 pub enum Term {
     Number(/* previously `$Number` */ String),
     Parenthesized(
