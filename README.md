@@ -1,4 +1,4 @@
-# genped
+# slegen
 
 A **minimalist** parser generator for Rust.
 
@@ -21,7 +21,7 @@ The only parts that should look unfamiliar to you
 are the terms that involve the `$` symbol.
 We will explain this later.
 
-Input (e.g., `arithmetic.genped`):
+Input (e.g., `arithmetic.slegen`):
 
 ```rust
 #[derive(Debug, Clone)]
@@ -90,7 +90,7 @@ In the next section, we'll explain the `$`.
 ## Lexer integration
 
 As you probably could guess from the signature
-of `Sum::parse`, genped's parser does not directly parse `str`s--it instead parses a sequence of
+of `Sum::parse`, slegen's parser does not directly parse `str`s--it instead parses a sequence of
 _tokens_.
 
 _You_ are in control of defining what a token is.
@@ -105,10 +105,10 @@ enum SOME_NAME {
 }
 ```
 
-genped will replace all types of the form
+slegen will replace all types of the form
 `TAG_NAME_i` with the corresponding `TYPE_i`.
 
-You must tell genped what type to use as your
+You must tell slegen what type to use as your
 token type by writing a `$ =` statement.
 
 ### Example:
@@ -206,4 +206,4 @@ Incredibly simple.
   you will probably have to perform more
   manipulation elsewhere in your code.
   - HOWEVER: We believe this is actually a
-    _benefit_. genped aims to do One Thing Well--parse.
+    _benefit_. slegen aims to do One Thing Well--parse.
