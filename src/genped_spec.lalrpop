@@ -5,13 +5,28 @@ grammar;
 
 pub Spec: Spec = { // (1)
     Statements => Spec { statements: <> },
+    // TODO: Delete
     // Expr ExprOp Factor => Box::new(Expr::Op(<>)), // (2)
     // Factor,
 };
 
 pub Statements: Statements = {
     // TODO
-    "+" => Statements::Nil,
+    () => Statements::Nil,
+    <h:Statements> <t:Statement> => Statements::Cons(Box::new(h), t),
+};
+
+pub Statement: Statement = {
+    "struct" => Statement::Struct(Struct {
+        opt_derive_clause: OptDeriveClause::None,
+        struct_kw: StructKeyword,
+        name: Ident("hello".to_string()),
+        body: StructBody::Curly(CurlyStructBody {
+            lcurly: LCurly,
+            fields: CurlyStructFields::Nil,
+            rcurly: RCurly,
+        })
+    })
 };
 
 // ExprOp: Opcode = { // (3)
