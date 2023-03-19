@@ -31,9 +31,34 @@ pub enum OptDeriveClause {
     Some(DeriveClause),
 }
 
-// TODO
 #[derive(Debug, Clone)]
-pub struct DeriveClause {}
+pub struct DeriveClause {
+    pub pound: Pound,
+    pub lsquare: LSquare,
+    pub expr: DeriveClauseExpr,
+    pub rsquare: RSquare,
+}
+
+#[derive(Debug, Clone)]
+pub enum DeriveClauseExpr {
+    Unit(Ident),
+    Call(Ident, LParen, CommaSeparatedIdents, OptComma, RParen),
+}
+
+#[derive(Debug, Clone)]
+pub enum CommaSeparatedIdents {
+    Unit(Ident),
+    Cons(Box<CommaSeparatedIdents>, Comma, Ident),
+}
+
+#[derive(Debug, Clone)]
+pub struct Pound;
+
+#[derive(Debug, Clone)]
+pub struct LSquare;
+
+#[derive(Debug, Clone)]
+pub struct RSquare;
 
 #[derive(Debug, Clone)]
 pub struct StructKeyword;
